@@ -1,0 +1,111 @@
+create database GET887
+use  GET887
+drop database GET887
+
+create table Employee(
+Emp_id int,
+Name varchar(20),
+Location varchar(20)
+)
+
+insert into Employee values(101,'Jack','Pune')
+
+select * from Employee
+
+--how to insert partial column values in table
+
+insert into Employee(Emp_id,Name) values(102,'john')
+
+insert into Employee values(103,'Peter','Hyderabad')
+
+insert into Employee(Emp_id,Name) values(102,'Ross')
+update Employee set Emp_id=104 where Name='Ross'
+update Employee set Location='Chennai', Name='Joey' where Emp_id=104
+
+--how to select particular columns
+select emp_id from Employee
+select emp_id as "Employee Id"from Employee
+select Name from Employee
+
+delete from Employee where Emp_id=104
+update Employee set Name='Victor',Location='Chennai' where Emp_id=101
+select * from Employee
+
+create table Customer(
+Cust_id int,
+Cust_Name varchar(20),
+Cust_Locality varchar(20),
+Occupation varchar(20),
+)
+
+insert into Customer (Cust_id,Cust_Name,Cust_Locality,Occupation)values(03,'Victor','Rifel pt.','Engineer'),
+(04,'Sam','Malcom St','Farmer')
+
+select * from Customer
+
+insert into Customer(Cust_id,Cust_Locality) values(5,'pawai')
+select Cust_id as Customerid , Cust_Name as Customername from Customer
+
+update Customer set Cust_Name='Pattinson', Occupation='Business' where Cust_id=5
+
+create table offices(
+officeCode int,
+city varchar(20),
+phone varchar(30),
+addressLine1 varchar(50),
+addressLine2 varchar(50),
+state varchar(30),
+country varchar(30),
+postalCode varchar(30),
+territory varchar(30)
+)
+ insert into offices values(1,'San Francisco','+1650897094378','100 Market Street','Suite 300','CA','USA','94080','NA')
+ insert into offices values(2,'Boston','+1 215 8837 0825','1550 Court place','Suite 102','MA','USA','2107','NA')
+ insert into offices values(3,'NYC','+1 212 555 3000','523 East 53rd Street','apt.5A','NY','USA','10022','NA')
+ insert into offices(officeCode,city,phone,addressLine1,country,postalCode,territory) values(4,'Paris','+33 14 723 4404','43 Rue Jouffroy Abbans','France','75017','EMEA')
+ insert into offices(officeCode,city,phone,addressLine1,state,country,postalCode,territory) values(5,'Tokyo','+81 33 224 5000','4-1 Koichio','Chiyoda-ku','Japan','102-8578','Japan')
+ 
+  insert into offices(officeCode,city,phone,addressLine1,addressLine2,country,postalCode,territory) values(6,'Sydney','+61 2 9264 2451','5-11 Wentworth avenue','Floor #2','Australia','NSW 2010','APAC')
+  insert into offices(officeCode,city,phone,addressLine1,addressLine2,country,postalCode,territory) values(7,'London','+44 20 7877 2041','25 Old Broad Street','Level 7','UK','EC2N 1HN','EMEA')
+ select * from offices
+ drop table offices
+update offices set state='Russia' where officeCode=4
+
+create table person(
+name varchar(30),
+contact Varchar(30)
+)
+insert into person values('John','8958594849')
+alter table person add Id int
+select * from person1
+alter table person alter column Id varchar(20)
+alter table person drop column Id
+exec sp_rename 'person','person1'
+exec sp_rename 'person1.name','Firstname'
+drop table person
+
+select * from Employee
+alter table Employee add Salary money
+update Employee set salary=19000 where Emp_id=101
+update Employee set salary=25000 where Emp_id=102
+update Employee set salary=26000 where Emp_id=103
+
+select Name from Employee where salary>20000
+insert into Employee (Emp_id,Name,Location) values(104,'Pattinson','Bangalore'),
+(105,'david','Hyderabad')
+
+--in operator
+update Employee set Salary=30000 where Emp_id in (104,105)
+--and operator 
+select * from Employee where Name='Peter' and salary=26000
+--or operator
+select * from Employee where Emp_id=103 or Name='Pattinson'
+--between operator
+select * from Employee where Emp_id between 103 and 105
+select * from Employee where Emp_id not between 103 and 105
+select Name from Employee where Name between 'A' and 'Q'
+-- difference between in and between operators 
+--between displays a range of values
+--in specifies only that values
+
+select * from Employee where Emp_id in(102,103)
