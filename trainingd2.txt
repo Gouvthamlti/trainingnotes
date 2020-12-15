@@ -1,0 +1,201 @@
+--DAY2
+create table customer_master(
+firstname varchar(30),
+middlename varchar(30),
+lastname varchar(30),
+customer_city varchar(30),
+customer_contactno varchar(20),
+customer_dob date
+)
+
+create table emp (
+empid int,
+empnaame varchar(20),
+empaddress varchar(20),
+empcity varchar(20),
+empph int
+)
+insert into emp(empid,empnaame,empaddress,empcity,empph)values
+(1,'go','123go','trichy',97432857),
+(2,'sha','54sha','cbe',983493),
+(3,'patt','34patt','chennai',84395)
+
+insert into emp values(3,'patt','34patt','chennai',84395)
+
+select distinct empnaame from emp where empcity='chennai'
+select distinct * from Account_Master where customer_number='C00007'
+
+select distinct empcity , empnaame , empph from emp where empcity='chennai'
+
+create table student(
+Regno int Identity(4001,1),
+Name varchar(20),
+subject1 int,
+subject2 int)
+
+insert into student values('neel',78,60)
+insert into student values('nithin',88,40)
+insert into student values('mukesh',98,50)
+insert into student values('jen',98,30)
+
+select * from student
+
+--insert into identity column use this command
+set Identity_insert student on
+insert into student (Regno,Name,subject1,subject2) values(40000,'pravin',88,55)
+--inorder to again continue with identity to be increase
+set Identity_insert student off
+insert into student values('badri',100,80)
+insert into student (Regno,Name,subject1,subject2) values(8,'vin',48,55)
+alter table student alter column Regno int
+insert into student (Name,subject1,subject2)values('vin',48,55)
+
+--order by
+select * from student order by Regno
+select * from student order by Regno asc
+select * from student order by Regno desc
+insert into student (Regno,Name,subject1,subject2) values(8,'kin',48,55)
+select * from student order by Name asc,Regno desc 
+select * from student order by Regno desc,Name asc
+select * from student order by subject1 asc,Name asc,Regno desc
+
+--arithmetic operators
+select subject1+subject2 as Total from student order by Total desc
+select subject1-subject2 as Total from student order by Total
+select subject1*subject2 as Total from student
+select subject1/subject2 as Total from student
+select subject1%subject2 as Total from student
+
+--aggregate function(or scalar function)
+--min,max,sum,count,avg
+select min(subject1) from student
+select max(subject1) from student
+select avg(subject1) from student
+select count(subject1) from student
+select sum(subject1) from student
+
+select * from student
+insert into student (Regno,Name,subject1) values(8,'kin',58)
+--top
+select top 2 * from student
+select top 50 percent * from student
+select top 4 * from student where regno>4001
+--Arithmetic Functions
+select ABS(-899),ABS(-45.3),ABS(3.0)
+select CEILING(45.9), CEILING(-123.5),CEILING(0.1)
+select sin(30)
+select asin(1)
+select DEGREES(10)
+select EXP(45.34)
+select pi()
+select RADIANs(189)
+select log(10)
+select power(12,3)
+select round(10.677788,3)
+select sqrt(64)
+
+--like operator
+
+select * from student
+
+select * from student where name like 'n%' 
+select * from student where name like '%h'
+select * from student where name like 'n_t%'
+select * from student where name like 'm%h'
+select * from student where subject1>80
+select * from student where subject1 like 88
+select * from student where name like '_a%'
+
+--string functions
+select ascii('ABC')
+select ascii('a')
+select char(98)
+select ASCII('/')
+select CHARINDEX('A','ABC')
+select DIFFERENCE('o','Hello')
+--Difference gives the soundex value of two strings,here hi hi will sound the same o and hello will not sound same so hi hi will have a difference value of 4
+select DIFFERENCE('Hi','Hi')
+--ltrim rtrim
+select LTRIM('     Hello     ')
+select RTRIM('Hello    ')
+--upper and lower
+select upper('welcome')
+select LOWER('WELCOME')
+--len function
+select len('hi')
+select len(ltrim('     Hello     '))
+select len(Rtrim('     Hello     '))
+select len(ltrim(rtrim('      hello     ')))
+--differnce between charinndex and patindex is that char index only gets the index of the character while pat index gets the pattern
+--patindex
+select PATINDEX('%il%','mailbox')
+select patindex('%box%','messsageboxmailbox')
+--reverse
+select REVERSE('jack')
+--space
+select 'Hello'+SPACE(6)+'welcome'
+--str 1st parameter number needed to be the string 2nd length of the string 3rd param tells the num of digits after thedecimal pt
+select str(345.6567,6,2)
+
+--date
+select GETDATE()
+select SYSDATETIME()
+select DATEDIFF(mm,'13-nov-2020','18-oct-2028')
+select DATEDIFF(dd,'13-nov-2020','18-oct-2028')
+select DATEDIFF(YYYY,'13-nov-2020','18-oct-2028')
+select DATEADD(dd,15,GETDATE())
+select DATEADD(mm,5,GETDATE())
+select DATEADD(yy,15,GETDATE())
+select datename(mm,getdate())
+select datename(dd,getdate())
+select datename(YY,getdate())
+select datepart(QQ,getdate())
+select datepart(DY,getdate())
+select datepart(WK,getdate())
+select datepart(WW,getdate())
+select datepart(dw,getdate())
+select datepart(hh,getdate())
+select datepart(MI,getdate())
+select datepart(n,getdate())
+select datepart(ss,getdate())
+select datepart(s,getdate())
+select datepart(ms,getdate())
+select getdate()
+select convert(time,GETDATE(),8)
+select right(convert(datetime,getdate(),0),8)
+select right(getdate(),8)
+select convert(time,getdate())
+select left(getdate(),19)
+
+select right('hello welcome',4)
+--primary key=>does not allow null values and duplicates,we can create only one primary key constraint per table
+drop table empl
+create table empl(
+empid int primary key identity(101,1),
+name varchar(20),
+designation varchar(20)
+)
+insert into empl(name,designation)values('peter','trainee'),('paul','trainee')
+
+select * from empl
+
+set identity_insert empl on
+insert into empl(empid,name,designation)values(101,'shaheen','trainee'),(101,'shaheen','trainee')
+--drop primary key constraint
+alter table empl drop constraint PK__empl__AF4CE8651E78FD06
+--another approach
+drop table empl
+create table empl(
+empid int,
+name varchar(30),
+designation varchar(30), constraint pkempid primary key(empid))
+insert into empl values(101,'ganesh','trainee')
+insert into empl values(102,'dinesh','trainee')
+insert into empl values(101,'pranesh','trainee')
+select * from empl
+--to remove constraint
+alter table empl drop constraint pkempid
+--to add constraint
+alter table empl add constraint pkempid primary key(empid)
+
+
